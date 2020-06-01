@@ -1,2 +1,3 @@
+include ':08_animation'
 rootProject.name='HenCoder'
 include ':06', ':07_change_camear_animation'

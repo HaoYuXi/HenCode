@@ -41,8 +41,8 @@ public class CameraView extends View {
     {
 
         camera.rotateX(30);
-//        camera.setLocation(0,0,Utils.getCameraZ());
-        camera.setLocation(0,0,3);
+        camera.setLocation(0,0,Utils.getCameraZ());
+//        camera.setLocation(0,0,3);
 
     }
 
