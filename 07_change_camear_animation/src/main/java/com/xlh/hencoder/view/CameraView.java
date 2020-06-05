@@ -24,11 +24,10 @@ import com.xlh.hencoder.Utils;
 public class CameraView extends View {
 
     private static final int ANGLE = 120;
-    private static final float RADIUS = Utils.dpToPixel(150);
+    private static final float RADIUS = Utils.dpToPixel(20);
     private static final float LENGTH = Utils.dpToPixel(100);
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Camera camera = new Camera();
-
 
     public CameraView(Context context) {
         super(context);
@@ -40,7 +39,7 @@ public class CameraView extends View {
 
     {
 
-        camera.rotateX(30);
+        camera.rotateX(45);
         camera.setLocation(0,0,Utils.getCameraZ());
 //        camera.setLocation(0,0,3);
 
@@ -51,12 +50,26 @@ public class CameraView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.translate(100+400/2,100+400/2);
+        //上半部分绘制
+        canvas.save();
+        canvas.translate(100+600/2,100+600/2);
+        canvas.rotate(-20);
+        canvas.clipRect(-600,-600,600,0);
+        canvas.rotate(20);
+        canvas.translate(-(100+600/2),-(100+600/2));
+        canvas.drawBitmap(Utils.getAvatar(getResources(),600),100,100,paint);
+        canvas.restore();
+
+        //下半部分绘制
+        canvas.save();
+        canvas.translate(100+600/2,100+600/2);
+        canvas.rotate(-20);
         camera.applyToCanvas(canvas);
-        canvas.translate(-(100+400/2),-(100+400/2));
-
-        canvas.drawBitmap(Utils.getAvatar(getResources(),400),100,100,paint);
-
+        canvas.clipRect(-600,0,600,600);
+        canvas.rotate(20);
+        canvas.translate(-(100+600/2),-(100+600/2));
+        canvas.drawBitmap(Utils.getAvatar(getResources(),600),100,100,paint);
+        canvas.restore();
 
     }
 
