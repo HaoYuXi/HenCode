@@ -23,6 +23,8 @@ class MainLayout extends ConstraintLayout implements MainActivity.IView {
     public TextView text;
     public Activity activity;
 
+
+
     public MainLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -44,6 +46,7 @@ class MainLayout extends ConstraintLayout implements MainActivity.IView {
 
             }
         });
+
 
     }
 
