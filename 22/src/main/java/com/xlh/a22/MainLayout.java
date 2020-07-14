@@ -5,11 +5,11 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
 
 /**
  * Date: 20-6-17
@@ -37,7 +37,7 @@ class MainLayout extends ConstraintLayout implements MainActivity.IView {
         editText2 = findViewById(R.id.editText2);
         text = findViewById(R.id.textView2);
 
-        text.setOnClickListener(new OnClickListener() {
+        text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "提交数据", Toast.LENGTH_SHORT).show();
