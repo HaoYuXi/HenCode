@@ -19,7 +19,8 @@ import androidx.core.view.GestureDetectorCompat;
  * Time: 下午4:15
  * Author: dain
  */
-class ScalableView extends View implements GestureDetector.OnGestureListener, Runnable {
+class ScalableView extends View implements GestureDetector.OnGestureListener, Runnable
+{
 
     Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     Bitmap bitmap;
@@ -31,12 +32,15 @@ class ScalableView extends View implements GestureDetector.OnGestureListener, Ru
     float offsetX;
     float offsetY;
 
+    int minX, maxX, minY, maxY;
+
 
     GestureDetectorCompat gestureDetectorCompat;
 
     OverScroller overScroller;
 
-    public ScalableView(Context context, @Nullable AttributeSet attrs) {
+    public ScalableView(Context context, @Nullable AttributeSet attrs)
+    {
         super(context, attrs);
         bitmap = Utils.getAvatar(getResources(), (int) IMAGE_WIDTH);
 
@@ -46,18 +50,26 @@ class ScalableView extends View implements GestureDetector.OnGestureListener, Ru
 
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    protected void onSizeChanged(int w, int h, int oldw, int oldh)
+    {
         super.onSizeChanged(w, h, oldw, oldh);
 
         originOffsetX = (getWidth() - bitmap.getWidth()) / 2f;
         originOffsetY = (getHeight() - bitmap.getHeight()) / 2f;
+        Log.i("TAG", "getWidth = " + getWidth() + "  getHeight = " + getHeight());
+        Log.i("TAG", "bitmapWidth = " + bitmap.getWidth() + "  bitmapHeight = " + bitmap.getHeight());
+        Log.i("TAG", "originOffsetX = " + originOffsetX + "  originOffsetY = " + originOffsetY);
 
-
+        minX = -(getWidth() - bitmap.getWidth()) / 2;
+        maxX = (getWidth() - bitmap.getWidth()) / 2;
+        minY = -(getHeight() - bitmap.getHeight()) / 2;
+        maxY = (getHeight() - bitmap.getHeight()) / 2;
     }
 
 
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(Canvas canvas)
+    {
         super.onDraw(canvas);
 
 
@@ -66,63 +78,73 @@ class ScalableView extends View implements GestureDetector.OnGestureListener, Ru
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onTouchEvent(MotionEvent event)
+    {
         return gestureDetectorCompat.onTouchEvent(event);
     }
 
     @Override
-    public boolean onDown(MotionEvent e) {
+    public boolean onDown(MotionEvent e)
+    {
         return true;
     }
 
     @Override
-    public void onShowPress(MotionEvent e) {
+    public void onShowPress(MotionEvent e)
+    {
 
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent e) {
+    public boolean onSingleTapUp(MotionEvent e)
+    {
         return false;
     }
 
     @Override
-    public boolean onScroll(MotionEvent donw, MotionEvent event, float distanceX, float distanceY) {
+    public boolean onScroll(MotionEvent donw, MotionEvent event, float distanceX, float distanceY)
+    {
         offsetX -= distanceX;
+        Log.e("onScroll_TAG", "offsetX = " + offsetX);
+
         offsetX = Math.min(offsetX, (getWidth() - bitmap.getWidth()) / 2);
         offsetX = Math.max(offsetX, -(getWidth() - bitmap.getWidth()) / 2);
         offsetY -= distanceY;
+        Log.e("onScroll_TAG", "offsetY = " + offsetY);
         offsetY = Math.min(offsetY, (getHeight() - bitmap.getHeight()) / 2);
         offsetY = Math.max(offsetY, -(getHeight() - bitmap.getHeight()) / 2);
 
-        Log.i("TAG", "offsetX = " + offsetX + "       offsetY = " + offsetY);
 
         invalidate();
         return false;
     }
 
     @Override
-    public void onLongPress(MotionEvent e) {
+    public void onLongPress(MotionEvent e)
+    {
 
     }
 
     @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-//        overScroller.fling((int) originOffsetX, (int) originOffsetY, (int) velocityX, (int) velocityY,
-//                -(int) (bitmap.getWidth() - getWidth()) / 2,
-//                (int) (bitmap.getWidth() - getWidth()) / 2,
-//                -(int) (bitmap.getHeight() - getWidth()) / 2,
-//                (int) (bitmap.getHeight() - getWidth()) / 2);
-//
-//        postOnAnimation(this);
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+    {
+        overScroller.fling((int) offsetX, (int) offsetY, (int) velocityX, (int) velocityY,
+                minX,
+                maxX,
+                minY,
+                maxY);
+
+        postOnAnimation(this);
 
         return false;
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         if (overScroller.computeScrollOffset()) {
-            originOffsetX = overScroller.getCurrX();
-            originOffsetY = overScroller.getCurrY();
+            offsetX = overScroller.getCurrX();
+            offsetY = overScroller.getCurrY();
             invalidate();
             postOnAnimation(this);
         }
