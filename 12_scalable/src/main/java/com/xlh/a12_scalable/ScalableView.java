@@ -125,6 +125,7 @@ class ScalableView extends View implements GestureDetector.OnGestureListener, Ru
 
     }
 
+
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
     {
