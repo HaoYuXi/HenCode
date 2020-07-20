@@ -9,11 +9,20 @@
 <!--</com.xlh.a12_scalable.SmallImageScalable>-->
 
 
-<com.xlh.a12_scalable.DoubleScalebleView xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<com.xlh.a12_scalable.DoubleScalebleView xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent">-->
+
+
+<!--</com.xlh.a12_scalable.DoubleScalebleView>-->
+
+<com.xlh.a12_scalable.TestView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
 
-</com.xlh.a12_scalable.DoubleScalebleView>
+</com.xlh.a12_scalable.TestView>
